@@ -47,6 +47,19 @@ function Home() {
 
                     }
                 </div> : <Loader />}
+                {
+                    selector.allPostExist.length===0 &&  <>
+                    <div className="flex items-center my-10 flex-col justify-center ">
+                    <h1 style={{
+                        fontSize:"2.25rem",
+                        textAlign:"center",
+                        letterSpacing:"0.55ch"
+                    }}>No Data</h1>
+                    <h2>Please Setup the application.</h2>
+                    <h3>Checkout the backend/utils file and see the Contributor.md file to setup all data</h3>
+                    </div>
+                    </>
+                }
 
             </section>
             {selector && selector.allPostExist && <div style={{

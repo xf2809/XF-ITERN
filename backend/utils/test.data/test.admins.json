@@ -1,0 +1,83 @@
+[{
+  "_id": {
+    "$oid": "660abaae3e3f7e3b054e0f30"
+  },
+  "email": "xfintern@gmail.com",
+  "name": "xf",
+  "year": 2019,
+  "employee": -2,
+  "field": "technology",
+  "summary": "extremely frustrated",
+  "website": "https://xfintern.onrender.com/",
+  "linkedin": "https://xfintern.onrender.com/",
+  "hiring": "2024",
+  "coins": 350,
+  "uuid": "a9dec7c3-a10e-4963-976a-1bb39d8de7c2",
+  "post": [
+    {
+      "$oid": "662818503b6cacfd6ad126aa"
+    },
+    {
+      "$oid": "662817e83b6cacfd6ad1269f"
+    },
+    {
+      "$oid": "6626953abdbbe8368effcf3c"
+    },
+    {
+      "$oid": "661d5b51dcd0e6624f61c63a"
+    },
+    {
+      "$oid": "661d5b01dcd0e6624f61c629"
+    },
+    {
+      "$oid": "661c20e19f3b080c281c88f3"
+    },
+    {
+      "$oid": "661c207c9f3b080c281c88d0"
+    },
+    {
+      "$oid": "661c20249f3b080c281c88c5"
+    },
+    {
+      "$oid": "661c1fdb9f3b080c281c88b5"
+    },
+    {
+      "$oid": "660ef172d63919857a5508ea"
+    },
+    {
+      "$oid": "660d6263bbd0df8300fbe4ed"
+    }
+  ],
+  "role": "admin",
+  "__v": 18,
+  "image": "http://res.cloudinary.com/dk9gvtcgx/image/upload/v1713803754/xfintern/rsxzzxivpa7cznvlbjzy.png"
+},
+{
+  "_id": {
+    "$oid": "66166ee557a8b5d11bd61794"
+  },
+  "email": "manzil.infinity2003@gmail.com",
+  "name": "Vanshreyu InfoTech",
+  "year": 2013,
+  "employee": 25,
+  "field": "Technology",
+  "summary": "Vanshreyu infotech is an IT services, consulting, and business solutions organization that has been partnering with many of the world's largest businesses in their transformation journeys for over 7 years.",
+  "website": "www.xf.info",
+  "linkedin": "www.linkedin.com/vanshreyu",
+  "hiring": "2024",
+  "coins": 350,
+  "uuid": "a11b3573-b991-4775-96c2-2743680f643f",
+  "post": [
+    {
+      "$oid": "6616722057a8b5d11bd617ca"
+    },
+    {
+      "$oid": "6616716957a8b5d11bd617c1"
+    },
+    {
+      "$oid": "6616709157a8b5d11bd617a6"
+    }
+  ],
+  "role": "admin",
+  "__v": 3
+}]

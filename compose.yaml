@@ -7,8 +7,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: xfintern-server
-    container_name: xfintern_backend
+    image: xfintern-server-contributor
+    container_name: xfintern_backend_contributor
     volumes:
       - ./:/server
     ports:
@@ -17,14 +17,14 @@ services:
     depends_on:
       - mongodb
     networks:
-      - mynetwork
+      - xfintern_network
   # Frontend Services
   client:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: xfintern-client
-    container_name: xfintern_frontend
+    image: xfintern-client-contributor
+    container_name: xfintern_frontend_contributor
     ports:
       - "5173:5173"
     depends_on:
@@ -32,14 +32,14 @@ services:
     volumes:
       - ./:/client
     networks: 
-      - mynetwork
+      - xfintern_network
   # Mongodb Services
   mongodb:
     image: mongo:latest
     volumes:
       - mongodb:/data/db
     networks:
-      - mynetwork
+      - xfintern_network
     ports:
       - "27017:27017"
 
@@ -48,4 +48,4 @@ volumes:
 
 
 networks:
-  mynetwork:
+  xfintern_network:
