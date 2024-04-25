@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Loader } from '../utils/Loader';
-import { addToApplied, getAppliedData } from '../utils/http';
+import { addToApplied } from '../utils/http';
 import { useDispatch } from 'react-redux';
 import { FaLinkedin, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import './Content.css'
 import toast from 'react-hot-toast';
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { Link, useNavigate } from "react-router-dom"
 import { addBookmark } from '../../redux/actions/postAction';
 function Content({ data, applyBool, withdraw = false, error, Bookmarked = false }) {
@@ -24,12 +24,6 @@ function Content({ data, applyBool, withdraw = false, error, Bookmarked = false 
             toast.error(error.info.message)
         },
 
-    });
-
-
-    const { data: isRegistered } = useQuery({
-        queryKey: ['profile'],
-        queryFn: getAppliedData
     });
 
     function handleClick() {

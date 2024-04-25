@@ -10,8 +10,7 @@ import {
   getPost,
   updatePostSuccess
 } from "../admin/postSlice";
-// const server = `http://localhost:9009`
-const server = `https://xfintern-backend.onrender.com`;
+const server = `http://localhost:9009`
 
 export const getAllPostofAllAdmin = (limit = 10, skip = 0) => async (dispatch) => {
   try {
