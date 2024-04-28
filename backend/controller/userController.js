@@ -14,9 +14,9 @@ const storage = multer.memoryStorage();
 const upload = multer({storage});
 let otp ;
 let userData;
-exports.register = async(req,res,next)=>{
+exports.register = async(req,res)=>{
     try{
-       const {email,role} = req.body;
+       const {email} = req.body;
        const already = await User.findOne({email : email});
        const adminExist = await Admin.findOne({email : email});
 
@@ -38,7 +38,7 @@ exports.register = async(req,res,next)=>{
         subject : 'Xf Intern OTP 🦾',
         message : `Thank You for using Xf Intern, \n Your OTP for login is <span style="font-size:1.15rem;"> ${otp}</span>`,
        });
-        res.status(200).json({
+        return res.status(200).json({
             status:"Successfully OTP Send",
           });
 
@@ -115,7 +115,7 @@ exports.verify = async(req,res,next)=>{
 
       res.status(200).json({
           status:"Successfully Login in",
-              user
+            user
         });
 
   }catch(err){

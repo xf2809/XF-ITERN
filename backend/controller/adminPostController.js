@@ -94,14 +94,14 @@ exports.viewAllPost = async(req,res,next) =>{
           createdAt:-1
         });
         
-        try{
-            const key = req.originalUrl || req.url;
-            // console.log(key);
-          // console.log("done")
+        // try{
+        //     const key = req.originalUrl || req.url;
+        //     // console.log(key);
+        //   // console.log("done")
 
-        }catch(err){
-          console.error("RedisError "+err);
-        }
+        // }catch(err){
+        //   console.error("RedisError "+err);
+        // }
        
        
         successResponse(res,post ,200);
