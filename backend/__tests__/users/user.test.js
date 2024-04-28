@@ -1,22 +1,5 @@
 const userController = require("../../controller/userController");
-const User = require("../../model/userModel");
-const Admin = require("../../model/adminModel");
 const httpMocks = require('node-mocks-http');
-// const {mockRequest,mockResponse} = require("../mockerFunction");
-// const mockResponse = () => {
-//     const res = {};
-//     res.json = jest.fn().mockReturnValue(res);
-//     res.status = jest.fn().mockReturnValue(res);
-//     res.send = jest.fn().mockReturnValue(res);
-//     return res;
-// };
-// const mockRequest = () => {
-//     const req = {};
-//     req.body = jest.fn().mockReturnValue(req);
-//     req.params = jest.fn().mockReturnValue(req);
-//     req.query = jest.fn().mockReturnValue(req);
-//     return req;
-// };
 // mocking the userModel
 jest.mock('../../model/userModel');
 jest.mock('../../controller/userController');

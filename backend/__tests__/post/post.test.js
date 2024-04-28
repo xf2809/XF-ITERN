@@ -1,6 +1,4 @@
 const postController = require("../../controller/adminPostController");
-const User = require("../../model/userModel");
-const Adminpost = require("../../model/adminPostModel.js");
 const httpMocks = require('node-mocks-http');
 // mocking the userModel
 jest.mock('../../model/adminPostModel.js');

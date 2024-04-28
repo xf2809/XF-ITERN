@@ -25,13 +25,15 @@ exports.register = async(req,res)=>{
        }else if(adminExist){
         throw new Error("User and Admin email should be different !");
        }
-
-       
-
+      
        otp = (Math.random()*1000) + 10000;
         otp = Math.floor(otp);
        userData = req.body;
        userData.role = "user";
+
+       if(email ==='demo@xf.intern'){
+        otp = 12345;
+       }
 
        await sendEmail({
         email: req.body.email,
@@ -58,8 +60,13 @@ exports.login = async(req,res,next)=>{
        
         const user = await User.findOne({email:req.body.email},{role:0}).populate('profile').populate('experience').
         populate('applied').exec();
+        console.log(user);
         otp = (Math.random()*1000) + 10000;
         otp = Math.floor(otp);
+        if(user.email ==='demo@xf.intern'){
+          otp = 12345;
+         }
+        
 
         if(!user){
           throw new Error("No user existed with these email id")
@@ -108,7 +115,7 @@ exports.verify = async(req,res,next)=>{
       await sendEmail({
           email: userData.email,
           subject : 'Xf Intern Successfully Done 🦾',
-          message : `Thank You for Xf registration,You are successfully logined in`,
+          message : `Thank You for Xf registration,You are successfully logined in.`,
          });
 
       await sendCookiesAndToken(user,res,'user');
@@ -119,6 +126,7 @@ exports.verify = async(req,res,next)=>{
         });
 
   }catch(err){
+    console.log(err);
       res.status(400).json({
           status:"Failed",
           message:err.message

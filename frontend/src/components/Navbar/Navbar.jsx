@@ -120,7 +120,8 @@ function Navbar() {
                             </a>
                         </li>}
                         {(!(adminLogin || userLogin) && !verifyLogin) && <li>
-                            <a href={"/login"} className='block md:hover:border-[#02F67C] md:hover:border md:hover:text-[#fff] border-[transparent] border font-medium text-[16px] text-white max-h-[37px] px-4 py-2 rounded-full md:transition md:ease-in-out md:duration-300 '>
+                            <a href={"/login"} className='block md:hover:border-[#02F67C] md:hover:border md:hover:text-[#fff] border-[transparent] border font-medium text-[16px] text-white max-h-[37px] px-4 py-2 rounded-full md:transition md:ease-in-out md:duration-300 '
+                            data-testid="login-btn">
                                 Login
                             </a>
                         </li>}
@@ -142,7 +143,7 @@ function Navbar() {
                                 }}
                                 className='flex items-center hover:bg-transparent md:hover:border md:hover:text-[#fff] border-[#02F67C] border bg-[#02F67C] font-medium text-[16px] text-[#0A2121] max-h-[37px] px-4 py-2 rounded-full md:transition md:ease-in-out md:duration-300'
                                 onClick={(adminLogin || userLogin) ? (adminLogin ? handleAdmin : handlelogoutBtn) : ()=>{return}}
-                            >
+                             data-testid="logout-btn">
                                 {((adminLogin || userLogin) && verifyLogin) ? 'Logout' : 'Register'}
                             </a>
                         </li>
