@@ -23,8 +23,5 @@ describe('Home Page Visit',() => {
         // cy.wait(15000);
         cy.get('[data-testid="admin-detail-box"]').should('exist');
         cy.get('[data-testid="admin-post-opening"]').should('exist');
-       
-        
-        
     })
 })

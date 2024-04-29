@@ -7,7 +7,8 @@
     "node": "20.x"
   },
   "scripts": {
-    "test": "jest --collectCoverage",
+    "test": "jest --collectCoverage --testPathPattern=/__tests__",
+    "test:e2e": "jest --testPathPattern=/e2e",
     "start": "node server.js"
   },
   "keywords": [],
@@ -32,6 +33,7 @@
     "nodemailer": "^6.9.9",
     "nodemon": "^3.0.3",
     "redis": "^4.6.13",
+    "supertest": "^7.0.0",
     "uuid": "^9.0.1",
     "validator": "^13.11.0"
   }

@@ -120,7 +120,8 @@ export function Login() {
                             </div>
                             <input type='email' placeholder='Your email address'
                                 autoComplete='off'
-                                name='email'>
+                                name='email'
+                                data-testid="input-box-login">
                             </input>
                             <button type='submit' data-testid="submit-login-admin">Email</button>
                         </form>}

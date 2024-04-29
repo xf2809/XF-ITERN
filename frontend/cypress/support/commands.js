@@ -23,3 +23,32 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (username = 'user') => {
+
+    cy.visit('/login');
+
+    if(username==='admin'){
+        // cy.get('[data-testid="login-btn]').click();
+        cy.get('[data-testid="radio-btn-admin"]').click();
+        cy.get('[data-testid="input-box-login"]').click().type('admin@xf.intern');
+        cy.get('[data-testid="submit-login-admin"]').click();
+        cy.get('[data-testid="otp-verify"]').click().type('12345');   
+        cy.get('[data-testid="otp-submit-btn"]').click();
+        cy.wait(2000);
+    }else{
+        cy.get('[data-testid="input-box-login"]').click().type('demo@xf.intern');
+        cy.get('[data-testid="submit-login-user"]').click();
+        cy.get('[data-testid="otp-verify"]').click().type('12345');
+        cy.get('[data-testid="otp-submit-btn"]').click();
+        cy.wait(2000);
+    }
+    }
+);
+
+// consider the user/admin is logined
+Cypress.Commands.add('logout', () => {
+    cy.visit('/');
+    cy.get('[data-testid="logout-register-btn"]').click();
+    cy.wait(2000);
+});

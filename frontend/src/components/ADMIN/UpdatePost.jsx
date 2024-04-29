@@ -62,7 +62,7 @@ export function UpdatePost() {
                 type="date" value={start}>Expected Starting date</InputFieldUpdate>
               <InputFieldUpdate name="deadline" placeholder="Deadline to apply"
                 type="date" value={deadline}>Deadline Date (For Apply) </InputFieldUpdate>
-              <button type='submit'>Update Post</button>
+              <button type='submit' data-testid="update-post-btn">Update Post</button>
             </form>
 
           </div>
