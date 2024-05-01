@@ -258,7 +258,7 @@ exports.getAllAdminDetails = async(req,res,next)=>{
 exports.isAuthenticated = async (req,res,next) =>{
   try{
     let token;
-    // console.log(req.cookies);
+    console.log(req.cookies);
     if(req.cookies.admin){
       token = req.cookies.admin;
     }

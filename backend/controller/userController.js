@@ -35,11 +35,15 @@ exports.register = async(req,res)=>{
         otp = 12345;
        }
 
-       await sendEmail({
-        email: req.body.email,
-        subject : 'Xf Intern OTP 🦾',
-        message : `Thank You for using Xf Intern, \n Your OTP for login is <span style="font-size:1.15rem;"> ${otp}</span>`,
-       });
+       if(!(email ==='demo@xf.intern')){
+        await sendEmail({
+          email: req.body.email,
+          subject : 'Xf Intern OTP 🦾',
+          message : `Thank You for using Xf Intern, \n Your OTP for login is <span style="font-size:1.15rem;"> ${otp}</span>`,
+         });
+        
+       }
+       
         return res.status(200).json({
             status:"Successfully OTP Send",
           });
@@ -60,24 +64,23 @@ exports.login = async(req,res,next)=>{
        
         const user = await User.findOne({email:req.body.email},{role:0}).populate('profile').populate('experience').
         populate('applied').exec();
-        console.log(user);
+        // console.log(user);
         otp = (Math.random()*1000) + 10000;
         otp = Math.floor(otp);
-        if(user.email ==='demo@xf.intern'){
-          otp = 12345;
-         }
-        
 
         if(!user){
           throw new Error("No user existed with these email id")
         }
         userData = user;
-        await sendEmail({
+        if(user.email ==='demo@xf.intern'){
+          otp = 12345;
+         }else{
+          await sendEmail({
             email: req.body.email,
             subject : `Xf Itern Registration OTP 🦾 - ${user.name}`,
             message : `Thank You for using Xf Itern, Your OTP for login is  <span style="font-size:1.15rem;"> ${otp} </span>`,
            });
-
+         }
         // await sendCookiesAndToken(user,res);
 
         res.status(200).json({
@@ -104,6 +107,7 @@ exports.verify = async(req,res,next)=>{
           throw new Error("Incorrect OTP please check it out")
      }
      let user
+
      if(userData.role){
        user = await User.create(userData);
      }else{
@@ -111,13 +115,14 @@ exports.verify = async(req,res,next)=>{
                                 .populate("profile")
                                 .populate("experience")
      }
-       
-      await sendEmail({
+      if(userData.email!=='demo@xf.intern'){
+        await sendEmail({
           email: userData.email,
           subject : 'Xf Intern Successfully Done 🦾',
           message : `Thank You for Xf registration,You are successfully logined in.`,
          });
-
+      }
+      
       await sendCookiesAndToken(user,res,'user');
 
       res.status(200).json({
@@ -126,7 +131,6 @@ exports.verify = async(req,res,next)=>{
         });
 
   }catch(err){
-    console.log(err);
       res.status(400).json({
           status:"Failed",
           message:err.message
@@ -140,9 +144,11 @@ exports.verify = async(req,res,next)=>{
 
 exports.getUser = async(req,res,next)=>{
     try{
+      console.log("Getuser called ----");
       if(!req.user){
         throw new Error("You are logout now , please login again")
       }
+      console.log(req.user);
         const user = await User.findById(req.user).populate("profile").populate("experience")
         .populate('applied').exec();
 
@@ -237,26 +243,28 @@ exports.expandBookmark = async (req,res,next) => {
   }
 }
 exports.isAuthenticated = async (req,res,next) =>{
-    try{
-      let token;
-      if(req.cookies.jwt){
-        token = req.cookies.jwt;
-      }
-      if(!token){
-        throw new Error("OOPs, Firstly you have to logined in !!");
-      }
-      const decode = jwt.verify(token,process.env.JWT_SECRET);
-      const currentloginedUser = await User.findById(decode.id);
-      req.user = currentloginedUser;
-      next();
-  
-    }catch(err){
-      res.status(404).json({
-        status:"Failed",
-       err: err.message
-      })
+  try{
+    let token;
+    if(req.cookies.jwt){
+      token = req.cookies.jwt;
     }
+    if(!token){
+      throw new Error("OOPs, Firstly you have to logined in !!");
+    }
+    const decode = jwt.verify(token,process.env.JWT_SECRET);
+    const currentloginedUser = await User.findById(decode.id);
+    req.user = currentloginedUser;
+    next();
+
+  }catch(err){
+    res.status(404).json({
+      status:"Failed",
+     err: err.message
+    })
   }
+}
+
+
   exports.imageUpload = upload.single('pic');
   
   exports.updateUser = async(req,res,next)=>{
