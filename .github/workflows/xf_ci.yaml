@@ -4,6 +4,7 @@ jobs:
   jest:
    name: 'Jest testing'
    runs-on: ubuntu-22.04
+   permissions: write-all
    steps:
     - uses: actions/checkout@v4
       with:
