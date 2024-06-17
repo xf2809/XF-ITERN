@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest --collectCoverage --testPathPattern=/__tests__",
-    "test:e2e": "jest --testPathPattern=/e2e --detectOpenHandles",
+    "test:e2e": "jest --testPathPattern=/e2e",
     "start": "node server.js"
   },
   "keywords": [],
