@@ -1,0 +1,14 @@
+name: Jest Testing
+on: push
+jobs:
+  jest:
+   name: 'Jest testing'
+   runs-on: ubuntu-22.04
+   steps:
+    - uses: actions/checkout@v4
+      with:
+          node-version: '20.x'
+    - name: Install Dependencies
+      run: npm install
+    - name: 'start testing'
+      run: npm run test
