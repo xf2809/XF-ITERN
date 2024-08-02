@@ -1,4 +1,3 @@
-const Profile = require("../model/profileModel");
 const jwt = require('jsonwebtoken');
 const multer = require("multer");
 const sendEmail = require("./../utils/mailing.js");
@@ -13,7 +12,7 @@ const User = require("../model/userModel.js");
 let otp ;
 let userData;
 
-exports.register = async(req,res,next)=>{
+exports.register = async(req,res)=>{
     try{
        const already = await Admin.findOne({email : req.body.email});
        // user email & admin email should be different 
@@ -58,7 +57,7 @@ exports.register = async(req,res,next)=>{
     }
 }
 
-exports.login = async(req,res,next)=>{
+exports.login = async(req,res)=>{
     try{
 
         const user = await Admin.findOne({email:req.body.email});
@@ -96,12 +95,12 @@ exports.login = async(req,res,next)=>{
 
     }
 }
-exports.verify = async(req,res,next)=>{
+exports.verify = async(req,res)=>{
   try{
     if(req.user){
       res.clearCookie('jwt');
     }
-    let OTP = Number(req.body.otp);
+    const OTP = Number(req.body.otp);
     // console.log("doc");
       // console.log(OTP);
       // console.log(otp)
@@ -149,7 +148,7 @@ exports.verify = async(req,res,next)=>{
   }
 }
 
-exports.getAdminDetail = async(req,res,next)=>{
+exports.getAdminDetail = async(req,res)=>{
     try{
       // console.log("hello");
       if(!req.admin){
@@ -179,10 +178,10 @@ exports.getAdminDetail = async(req,res,next)=>{
 
     }
 }
-exports.logout = async(req,res,next)=>{
+exports.logout = async(req,res)=>{
   try{
     
-    if(!req.admin) throw new Error("You are already logout BRO!!!");
+    if(!req.admin) {throw new Error("You are already logout BRO!!!");}
     res.clearCookie('admin');
     res.status(200).json({
       status:"Success",
@@ -197,9 +196,9 @@ exports.logout = async(req,res,next)=>{
   }
 }
 exports.imageUpload = upload.single('image');
-exports.updateDetails = async  (req,res,next) =>{
+exports.updateDetails = async  (req,res) =>{
     try{
-    const {email,image,coins,post,role} = req.body;
+    const {email,coins,post,role} = req.body;
     const updateData = req.body;
     const imageSize = 10 * 1024 * 1024;
     if(imageSize < req.file.size){
@@ -209,8 +208,8 @@ exports.updateDetails = async  (req,res,next) =>{
     if (!updateData.image) {
     // console.log(req.file); 
     const b64 = Buffer.from(req.file.buffer).toString("base64");
-    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-    let result = await cloudinary.uploader.upload(dataURI,{
+    const dataURI = `data:${  req.file.mimetype  };base64,${  b64}`;
+    const result = await cloudinary.uploader.upload(dataURI,{
       folder:"xfintern"
     });
     updateData.image = result.url;
@@ -222,7 +221,7 @@ exports.updateDetails = async  (req,res,next) =>{
             )
         }
         
-        const updatedUser = await Admin.findByIdAndUpdate(req.admin,updateData);
+        // const updatedUser = await Admin.findByIdAndUpdate(req.admin,updateData);
 
         res.status(200).json({
             status:"Success",
@@ -236,7 +235,7 @@ exports.updateDetails = async  (req,res,next) =>{
           });
     }
 }
-exports.getAllAdminDetails = async(req,res,next)=>{
+exports.getAllAdminDetails = async(req,res)=>{
   try{
       const adminId = req.params.adminId;
       // console.log(adminId);

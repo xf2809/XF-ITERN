@@ -1,12 +1,12 @@
-const { query } = require("express");
+// const { query } = require("express");
 const Admin = require("../model/adminModel");
 const Adminpost = require("../model/adminPostModel");
 const Post = require("../model/adminPostModel");
 const Applied = require("../model/appliedModel");
 const User = require("../model/userModel");
 const sendEmail = require('../utils/mailing');
-const client = require("../utils/redisConnect");
-let path = 'api/post'
+// const client = require("../utils/redisConnect");
+// const path = 'api/post'
 const successResponse = (res,output,responseCode=200)=>{
     res.status(responseCode).json({
         status:"success",
@@ -22,7 +22,7 @@ const failedResponse = (res,error,responseCode=400)=>{
         err:error.message
     })
 }
-exports.createPost= async (req,res,next)=>{
+exports.createPost= async (req,res)=>{
     try{
       // console.log("rahul"+ req.admin);
     const authAdmin = await Admin.findById(req.admin._id);
@@ -46,14 +46,14 @@ exports.createPost= async (req,res,next)=>{
     }
 
 }
-exports.updatePost = async(req,res,next) =>{
+exports.updatePost = async(req,res) =>{
     try{
        if(req.body.adminId){
         throw new Error("No access to change  uuid");
        }
     
       
-        const id = req.params.id;
+        // const id = req.params.id;
         const authAdmin = await Admin.findById(req.admin);
       //  console.log("authAdmin : ",authAdmin);
         const postToUpdate = await Post.findById(req.params.id);
@@ -62,7 +62,7 @@ exports.updatePost = async(req,res,next) =>{
             throw new Error("No permission to change others post");
         }
 
-        const post = await Post.findByIdAndUpdate(id,req.body,{runValidators: true});
+        // const post = await Post.findByIdAndUpdate(id,req.body,{runValidators: true});
         // await post.save();
 
         successResponse(res,"Post updated successfully",200);
@@ -70,7 +70,7 @@ exports.updatePost = async(req,res,next) =>{
         failedResponse(res,err,400);
     }
 }
-exports.viewPost = async(req,res,next) =>{
+exports.viewPost = async(req,res) =>{
     try{
         // get the post using the _id of post
         const post = await Post.findById(req.params.id).populate('userId');
@@ -88,7 +88,7 @@ exports.viewPost = async(req,res,next) =>{
         failedResponse(res,err,400);
     }
 }
-exports.viewAllPost = async(req,res,next) =>{
+exports.viewAllPost = async(req,res) =>{
     try{
         const post = await Post.find({}).limit(req.query.limit).skip(req.query.skip).sort({
           createdAt:-1
@@ -109,7 +109,7 @@ exports.viewAllPost = async(req,res,next) =>{
         failedResponse(res,err,400);
     }
 }
-exports.deletePost = async(req,res,next) =>{
+exports.deletePost = async(req,res) =>{
     try{
         const authAdmin = await Admin.findById(req.admin);
         const postToDelete = await Post.findById(req.params.id);
@@ -127,7 +127,7 @@ exports.deletePost = async(req,res,next) =>{
 }
 
 // get all post of admin who is logined
-exports.getAllPostofAdmin = async(req,res,next) =>{
+exports.getAllPostofAdmin = async(req,res) =>{
     try{
         const uuid = req.admin.uuid;
         console.log(uuid);
@@ -142,7 +142,7 @@ exports.getAllPostofAdmin = async(req,res,next) =>{
         failedResponse(res,err,400);
     }
 }
-exports.getAllPostofOthers = async(req,res,next) =>{
+exports.getAllPostofOthers = async(req,res) =>{
     try{
         const uuid = req.params.uuid;
         console.log(uuid);
@@ -154,7 +154,7 @@ exports.getAllPostofOthers = async(req,res,next) =>{
 } 
 
 // GETTING ALL USER WHO APPLIED TO SPECIFIC ROLE/POST
-exports.getAllUserApplied = async(req,res,next) =>{
+exports.getAllUserApplied = async(req,res) =>{
     try{
         const id = req.params.id;
         const post = await Post.findById(id);
@@ -184,7 +184,7 @@ exports.getAllUserApplied = async(req,res,next) =>{
 
 // you have the applied id as params
 // change - ["pending","inprogress","notselected","selected"]
-exports.statusChange = async(req,res,next)=>{
+exports.statusChange = async(req,res)=>{
     try{
       const admin = await Admin.findById(req.admin._id);
       console.log(admin)
@@ -225,7 +225,7 @@ exports.statusChange = async(req,res,next)=>{
 
 // adminId(companyId) / userId (uuid) / post id(_id / pid(in Applied)) // get STATUS
 
-exports.getStatusofApplied = async(req,res,next) =>{
+exports.getStatusofApplied = async(req,res) =>{
     try{
         
         const {pid,userId,companyId} = req.body;
@@ -238,7 +238,7 @@ exports.getStatusofApplied = async(req,res,next) =>{
         failedResponse(res,err,400);
     }
   } 
-  exports.searchField = async(req,res,next)=>{
+  exports.searchField = async(req,res)=>{
     try{
       console.log(req.params.search);
       console.log(req.query.name);
@@ -275,10 +275,10 @@ exports.getStatusofApplied = async(req,res,next) =>{
   
     }
   }
-  exports.autoComplete = async(req,res,next)=>{
+  exports.autoComplete = async(req,res)=>{
     try{
   
-      let result = [];
+      // const result = [];
       const {searchfield} = req.body;
       results = await Adminpost.aggregate([
         // {

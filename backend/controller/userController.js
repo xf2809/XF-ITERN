@@ -1,4 +1,4 @@
-const Profile = require("../model/profileModel");
+// const Profile = require("../model/profileModel");
 const jwt = require('jsonwebtoken');
 const multer = require("multer");
 const sendEmail = require("./../utils/mailing.js");
@@ -6,8 +6,8 @@ const sendCookiesAndToken = require("../utils/sendTokenCookies.js");
 const cloudinary = require("cloudinary").v2;
 const User = require('../model/userModel.js');
 const Admin = require('../model/adminModel.js');
-const redisClient = require("../utils/redisConnect.js");
-const { ObjectId } = require("mongodb");
+// const redisClient = require("../utils/redisConnect.js");
+// const { ObjectId } = require("mongodb");
 const Feedback = require("../model/feedbackModel.js");
 const SubscribeUs = require("../model/subscriberModel.js");
 const storage = multer.memoryStorage();
@@ -54,7 +54,7 @@ exports.register = async(req,res)=>{
 }
 
 
-exports.login = async(req,res,next)=>{
+exports.login = async(req,res)=>{
     try{
 
        
@@ -92,14 +92,14 @@ exports.login = async(req,res,next)=>{
 
     }
 }
-exports.verify = async(req,res,next)=>{
+exports.verify = async(req,res)=>{
   try{
 
     if(req.admin){
       res.clearCookie('admin');
     }
 
-    let OTP = Number(req.body.otp);
+    const OTP = Number(req.body.otp);
      if(OTP !== otp){
           throw new Error("Incorrect OTP please check it out")
      }
@@ -138,7 +138,7 @@ exports.verify = async(req,res,next)=>{
 
 
 
-exports.getUser = async(req,res,next)=>{
+exports.getUser = async(req,res)=>{
     try{
       if(!req.user){
         throw new Error("You are logout now , please login again")
@@ -161,7 +161,7 @@ exports.getUser = async(req,res,next)=>{
 
     }
 }
-exports.getUserById = async(req,res,next)=>{
+exports.getUserById = async(req,res)=>{
   try{
       const id = req.params.id;
       const user = await User.findById(id);
@@ -179,10 +179,10 @@ exports.getUserById = async(req,res,next)=>{
 
   }
 }
-exports.logout = async(req,res,next)=>{
+exports.logout = async(req,res)=>{
   try{
     
-    if(!req.user) throw new Error("You are already logout BRO!!!");
+    if(!req.user) {throw new Error("You are already logout BRO!!!");}
     res.clearCookie('jwt');
     res.status(200).json({
       status:"Success",
@@ -196,16 +196,16 @@ exports.logout = async(req,res,next)=>{
     });
   }
 }
-exports.addbookmark = async(req,res,next)=>{
+exports.addbookmark = async(req,res)=>{
   try{
     
-    if(!req.user) throw new Error("Login first!!");
+    if(!req.user) {throw new Error("Login first!!");}
     const {bookmark_id} = req.body;
 
     const user = await User.findById(req.user);
     const length = user.bookmark.length;
     for(let i=0;i<length;i++){
-       if((user.bookmark[i]+'').includes(bookmark_id)){
+       if((`${user.bookmark[i]}`).includes(bookmark_id)){
         throw new Error("Already bookmark 🥱")
        }
     }
@@ -223,7 +223,7 @@ exports.addbookmark = async(req,res,next)=>{
     });
   }
 }
-exports.expandBookmark = async (req,res,next) => {
+exports.expandBookmark = async (req,res) => {
   try{
      const bookmark = await User.findById(req.user).populate("bookmark");
      res.status(200).json({
@@ -259,17 +259,17 @@ exports.isAuthenticated = async (req,res,next) =>{
   }
   exports.imageUpload = upload.single('pic');
   
-  exports.updateUser = async(req,res,next)=>{
+  exports.updateUser = async(req,res)=>{
     try{
   
       const updatedData = {};
-      const user = await User.findById(req.user);
+      // const user = await User.findById(req.user);
   
-      let url;
+      // let url;
       if(req.file && req.file.fieldname === 'pic'){
       const b64 = Buffer.from(req.file.buffer).toString("base64");
-      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-      let result = await cloudinary.uploader.upload(dataURI,{
+      const dataURI = `data:${  req.file.mimetype  };base64,${  b64}`;
+      const result = await cloudinary.uploader.upload(dataURI,{
         folder:"job-logo"
       });
       updatedData.pic = result.url;
@@ -294,7 +294,7 @@ exports.isAuthenticated = async (req,res,next) =>{
             })
       }
   }
-exports.giveFeedback = async (req,res,next) => {
+exports.giveFeedback = async (req,res) => {
     try{
        const bookmark = await Feedback.create(req.body);
        res.status(200).json({
@@ -307,7 +307,7 @@ exports.giveFeedback = async (req,res,next) => {
       });
     }
 }
-exports.subscribeMe = async (req,res,next) => {
+exports.subscribeMe = async (req,res) => {
   try{
      const subscribed  = await SubscribeUs.findOne({email:req.body.email});
 
