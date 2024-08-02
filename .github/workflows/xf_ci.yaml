@@ -28,6 +28,9 @@ jobs:
   yaml-lint:
     name: yaml-lint
     runs-on: ubuntu-22.04
+    defaults:
+         run:
+           working-directory: ./
     steps:
       - uses: actions/checkout@v4
       - name: install yamllint
