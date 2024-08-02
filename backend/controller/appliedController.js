@@ -130,9 +130,7 @@ exports.applyToRole = async(req,res,next) =>{
     // trigger a mail to both user and admin 
     const adminDetail = await Admin.findOne({uuid:adminPost.adminId});
 
-    if(!(user.email='demo@xf.intern'))
-    {
-      await sendEmail({
+    await sendEmail({
       email: req.user.email,
       subject : `Application to ${adminDetail.name} successfully submitted`,
       message : `Your application has been submitted! \n
@@ -148,7 +146,6 @@ exports.applyToRole = async(req,res,next) =>{
       Email:${user.email}
       Browser more - https://xfintern.onrender.com`
     });
-   }
 
     res.status(200).json({
       status:"success",
