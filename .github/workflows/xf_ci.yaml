@@ -13,3 +13,10 @@ jobs:
       run: npm install
     - name: 'start testing'
       run: npm run test
+      env:
+        DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
+    - name: Jest code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report
+        path: coverage/Icon-report
