@@ -6,5 +6,5 @@ rules:
   document-start: disable
 
 ignore: |
-  site/node_modules/*
-  site/vendor/*
+  backend/node_modules/*
+  frontend/node_modules/*
