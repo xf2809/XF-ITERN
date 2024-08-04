@@ -24,7 +24,7 @@ jobs:
       if: failure()
       with:
         name: code-coverage-report
-        path: coverage
+        path: /coverage
 
   js-lint:
      runs-on: ubuntu-22.04
