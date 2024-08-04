@@ -21,6 +21,7 @@ jobs:
         DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
     - name: Jest code coverage results
       uses: actions/upload-artifact@v4
+      if: failure()
       with:
         name: code-coverage-report
         path: ./coverage
