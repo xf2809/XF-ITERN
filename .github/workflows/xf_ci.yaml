@@ -2,44 +2,44 @@ name: Jest Testing
 on: push
 jobs:
   jest:
-   name: 'Jest testing'
-   runs-on: ubuntu-22.04
-   defaults:
-         run:
-           working-directory: ./backend
-   permissions: write-all
-   steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-       node-version: '20.x'
-    - name: Install Dependencies
-      run: npm install
-    - name: 'start testing'
-      run: npm run test
-      env:
-        DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
-    - name: Jest code coverage results
-      uses: actions/upload-artifact@v4
-      if: failure()
-      with:
-        name: code-coverage-report
-        path: /backend/coverage
+    name: "Jest testing"
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./backend
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install Dependencies
+        run: npm install
+      - name: "start testing"
+        run: npm run test
+        env:
+          DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
+      - name: Jest code coverage results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: code-coverage-report
+          path: /backend/coverage
 
   js-lint:
-     runs-on: ubuntu-22.04
-     defaults:
-       run:
-          working-directory: ./backend
-     steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-node@v4
-          with:
-            node-version: '20.x'
-        - name: Install Dependencies
-          run: npm install
-        - name: Run Eslint
-          run: npm run eslint
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Eslint
+        run: npm run eslint
 
   yaml-lint:
     name: YAML Lint
@@ -50,4 +50,3 @@ jobs:
         run: pip install yamllint
       - name: Run yamllint
         run: yamllint .
-
