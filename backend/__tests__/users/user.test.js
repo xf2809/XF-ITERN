@@ -3,7 +3,6 @@ const httpMocks = require('node-mocks-http');
 // mocking the userModel
 jest.mock('../../model/userModel');
 jest.mock('../../controller/userController');
-// const 
 
 describe('user testing', () => {
     test('verify/Login', async () => {
