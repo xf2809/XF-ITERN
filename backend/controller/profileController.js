@@ -9,7 +9,7 @@ const upload = multer({storage});
 // exports.uploadLogo = upload.single('logo');
 exports.picUpload = upload.single('pic');
 
-exports.createJob = async(req,res,next)=>{
+exports.createJob = async(req,res)=>{
     try{
     // console.log(req.body);
     // let url;
@@ -31,7 +31,7 @@ exports.createJob = async(req,res,next)=>{
     if(!req.user){
       throw new Error("Not logined in");
     }
-    let coins = 100;
+    const coins = 100;
     // calculating the coins that will reflect it in the user account 
     let calcCoins =coins + (name ? 1 : 0 ) +  (mobile ? 5 : 0) + (linkedin ? 3 : 0) + (github ? 3 : 0) + 
     (college_name ? 5 : 0) + (type ? 4 : 0) + (start ? 2 : 0) + (end ? 2 : 0) + (project ? 7  : 0) +
@@ -61,19 +61,19 @@ exports.createJob = async(req,res,next)=>{
     }
 }
 
-exports.updateUser = async(req,res,next)=>{
+exports.updateUser = async(req,res)=>{
   try{
 
     const updatedData = {};
     // console.log(req.body);
     const user = await User.findById(req.user);
 
-    let url;
+    // let url;
     // console.log(req.file)
     if(req.file && req.file.fieldname === 'pic'){
     const b64 = Buffer.from(req.file.buffer).toString("base64");
-    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-    let result = await cloudinary.uploader.upload(dataURI,{
+    const dataURI = `data:${  req.file.mimetype  };base64,${  b64}`;
+    const result = await cloudinary.uploader.upload(dataURI,{
       folder:"job-logo"
     });
     updatedData.pic = result.url;

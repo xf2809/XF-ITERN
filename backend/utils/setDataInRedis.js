@@ -3,7 +3,7 @@ const setDataInRedis = async (data)=>{
     try{
       await client.set(key,JSON.stringify({data : data}),'ex',86400);
     }catch(err){
-      console.error("Redis Error "+err);
+      console.error(`Redis Error ${err}`);
     }
 }
 module.exports = setDataInRedis;

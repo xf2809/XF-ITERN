@@ -92,9 +92,9 @@ describe('user testing', () => {
   test('Update a Post', async () => {
     const req = httpMocks.createRequest();
     const res = httpMocks.createResponse();
-    const data = {
-      "type": "internship-remote",
-    }
+    // const data = {
+    //   "type": "internship-remote",
+    // }
     const mockValue = {
       status: "Success",
       statusCode: 200,
@@ -109,9 +109,9 @@ describe('user testing', () => {
     expect(response.statusCode).toEqual(200);
     expect(response.status).toBe("Success");
     expect(res.statusCode).toEqual(200);
-    const changeStatus= {
-      "status":"selected"
-    }
+    // const changeStatus= {
+    //   "status":"selected"
+    // }
     const changeMockValue = {
       status: "Success",
       statusCode: 200,
@@ -129,29 +129,29 @@ describe('user testing', () => {
   test('deletePost',async () => {
     const req = httpMocks.createRequest();
     const res = httpMocks.createResponse();
-    const data = {
-      "_id": '660e3a0cfde07df5ddbcba2f',
-      "pid": "660d6263bbd0df8300fbe4ed",
-      "type": "internship-onsite",
-      "companyId": "a9dec7c3-a10e-4963-976a-1bb39d8de7c2",
-      "salary": 4500,
-      "duration": 3,
-      "start": {
-        "$date": "2024-05-17T00:00:00.000Z"
-      },
-      "deadline": {
-        "$date": "2024-04-20T00:00:00.000Z"
-      },
-      "companyName": "xf",
-      "description": "Exp: 1 to 3 years \n\nSal: As per Industry Standard\n\nQualification: B.E/B.Tech/M.E/M.Tech/BCA/MCA/B.Sc/M.Sc",
-      "status": "selected",
-      "userId": {
-        "$oid": "660e37acfde07df5ddbcba19"
-      },
-      "logo": "https://internshala.com/static/images/company/logo.svg",
-      "__v": 0,
-      "name": "Java Developer"
-    }
+    // const data = {
+    //   "_id": '660e3a0cfde07df5ddbcba2f',
+    //   "pid": "660d6263bbd0df8300fbe4ed",
+    //   "type": "internship-onsite",
+    //   "companyId": "a9dec7c3-a10e-4963-976a-1bb39d8de7c2",
+    //   "salary": 4500,
+    //   "duration": 3,
+    //   "start": {
+    //     "$date": "2024-05-17T00:00:00.000Z"
+    //   },
+    //   "deadline": {
+    //     "$date": "2024-04-20T00:00:00.000Z"
+    //   },
+    //   "companyName": "xf",
+    //   "description": "Exp: 1 to 3 years \n\nSal: As per Industry Standard\n\nQualification: B.E/B.Tech/M.E/M.Tech/BCA/MCA/B.Sc/M.Sc",
+    //   "status": "selected",
+    //   "userId": {
+    //     "$oid": "660e37acfde07df5ddbcba19"
+    //   },
+    //   "logo": "https://internshala.com/static/images/company/logo.svg",
+    //   "__v": 0,
+    //   "name": "Java Developer"
+    // }
     const mockValue = {
       status: "Success",
       statusCode:200,

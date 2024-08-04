@@ -8,7 +8,7 @@ const signToken = (id) => {
 const sendCookiesAndToken = async (user,res,role='user') =>{
   // taking id of github profile
   // console.log(user._id);
-  if(!user._id) throw new Error("Something went wrong!");
+  if(!user._id) {throw new Error("Something went wrong!");}
   const token = signToken(user._id);
   // console.log({token});
 

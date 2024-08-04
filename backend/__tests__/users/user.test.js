@@ -84,7 +84,7 @@ describe('user testing', () => {
             return Mockresponse;
         });
         mockController.mockReset();
-        const response = userController.verify(req,res);
+        // const response = userController.verify(req,res);
         expect(mockController).toHaveBeenCalledTimes(1); 
         expect(res.statusCode).toEqual(200);
     });

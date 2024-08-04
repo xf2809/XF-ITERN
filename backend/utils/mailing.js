@@ -1,4 +1,4 @@
-var nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer");
 
   const sendEmail = async (options) =>{
     const transporter = nodemailer.createTransport({
@@ -77,7 +77,7 @@ var nodemailer = require("nodemailer");
     if (error) {
       console.error(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log(`Email sent: ${  info.response}`);
     }
   });
 }

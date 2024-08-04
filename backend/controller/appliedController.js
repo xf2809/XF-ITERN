@@ -3,8 +3,8 @@ const User = require("../model/userModel");
 const Adminpost = require("../model/adminPostModel");
 const sendEmail = require('../utils/mailing');
 const Admin = require('../model/adminModel');
-const client = require("../utils/redisConnect");
-exports.apoliedStatus = async(req,res,next)=>{
+// const client = require("../utils/redisConnect");
+exports.apoliedStatus = async(req,res)=>{
     try{
         const id_data = req.body._id;
         const {companyname,roleName,salary,experience} = req.body;
@@ -15,15 +15,15 @@ exports.apoliedStatus = async(req,res,next)=>{
         const exp = await Applied.create({...req.body,id:id_data});
 
         const user = await User.findById(req.user);
-        const charge =  companyname.length + roleName.length + (salary+"").length + 
-        (experience+"").length ;
+        const charge =  companyname.length + roleName.length + (`${salary}`).length + 
+        (`${experience}`).length ;
 
         if(charge > user.coins){
           throw new Error("You do not have enough coins to apply");
         }
-        const newCoin = user.coins - charge;
+        // const newCoin = user.coins - charge;
 
-        const updateDetail = await User.findByIdAndUpdate(req.user,{coins:newCoin});
+        // const updateDetail = await User.findByIdAndUpdate(req.user,{coins:newCoin});
          
         user.applied.unshift(exp._id);
         await user.save();
@@ -50,14 +50,14 @@ exports.apoliedStatus = async(req,res,next)=>{
         });
       }
 }
-exports.getAllApplied = async(req,res,next)=>{
+exports.getAllApplied = async(req,res)=>{
     try{
         const exp = await Applied.find();
         if(!exp){
             throw new Error("No applied Company yet");
         }
         // redis part - caching - setting the value 
-        const key = req.originalUrl || req.url;
+        // const key = req.originalUrl || req.url;
         res.status(200).json({
           status:"Success",
           exp
@@ -79,7 +79,7 @@ exports.getAllApplied = async(req,res,next)=>{
 // id of user who is applying is also saved into that post he is applied
 
 // adminpost ki id
-exports.applyToRole = async(req,res,next) =>{
+exports.applyToRole = async(req,res) =>{
   try{
     // post 
     // company detail

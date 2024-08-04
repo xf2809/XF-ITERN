@@ -1,12 +1,12 @@
 const Experience = require("../model/jobDetailModel");
 const User = require("../model/userModel");
 
-exports.createExp = async(req,res,next)=>{
+exports.createExp = async(req,res)=>{
     try{
         const exp = await Experience.create(req.body);
 
         const user = await User.findById(req.user);
-       let calcCoins = user.coins + 75; // for every experience it will add 75 coins 
+       const calcCoins = user.coins + 75; // for every experience it will add 75 coins 
         await User.findByIdAndUpdate(req.user,{coins:calcCoins});
         user.experience.unshift(exp._id);
         await user.save();

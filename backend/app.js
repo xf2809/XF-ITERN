@@ -5,7 +5,6 @@ const jobDetailRouter = require("./router/jobDetailRouter");
 const adminRouter = require("./router/adminRouter");
 const adminPostRouter = require("./router/adminPostRouter");
 const cookieParser = require('cookie-parser');
-const session = require("express-session");
 const cors = require('cors');
 const cloudinary = require("cloudinary").v2;
 app.use(cookieParser());

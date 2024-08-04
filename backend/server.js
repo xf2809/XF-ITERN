@@ -11,5 +11,5 @@ mongoose.connect(DB).then(()=>{
 });
 
 app.listen(port,()=>{
-    console.log("Sever running on port "+port);
+    console.log(`Sever running on port ${port}`);
 });
